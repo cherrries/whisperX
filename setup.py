@@ -1,18 +1,25 @@
 import os
 import platform
+import subprocess
 
 import pkg_resources
 from setuptools import find_packages, setup
 
+def git_version():
+    try:
+        return subprocess.check_output(["git", "rev-parse", "HEAD"]).decode('ascii').strip()
+    except Exception:
+        return "unknown"
+
 setup(
     name="whisperx",
     py_modules=["whisperx"],
-    version="3.1.1",
+    version=git_version(),
     description="Time-Accurate Automatic Speech Recognition using Whisper.",
     readme="README.md",
     python_requires=">=3.8",
     author="Max Bain",
-    url="https://github.com/m-bain/whisperx",
+    url="https://github.com/cherrries/whisperx",
     license="MIT",
     packages=find_packages(exclude=["tests*"]),
     install_requires=[
