@@ -7,8 +7,21 @@ dynamic = [
     "optional-dependencies",
     "description",
     "authors",
-    "dependencies",
     "readme"
+]
+dependencies = [
+    "torch>=2",
+    "torchaudio>=2",
+    "torchvision==0.15.1",
+    "faster-whisper==1.1.0",
+    "transformers",
+    "pandas",
+    "setuptools>=65",
+    "nltk",
+    "numpy<2.0.0",
+    "pytorch-lightning>=2.0.0",
+    "torchmetrics>=0.11.4",
+    "pyannote.audio==3.1.1"
 ]
 
 [build-system]
@@ -23,3 +36,19 @@ readme = {file = ["README.md"]}
 
 [project.scripts]
 whisperx = "whisperx.__main__:main"
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu118", marker = "platform_system != 'Darwin'"},
+]
+torchvision = [
+  { index = "pytorch-cu118", marker = "platform_system != 'Darwin'"},
+]
+torchaudio = [
+  { index = "pytorch-cu118", marker = "platform_system != 'Darwin'"},
+]
