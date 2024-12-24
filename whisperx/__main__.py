@@ -2,5 +2,10 @@
 import sys
 from whisperx.transcribe import cli
 
+def main():
+    return cli()
+
 if __name__ == '__main__':
-    sys.exit(cli())
+    sys.exit(main())
+
+__all__ = ['main']

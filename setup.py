@@ -31,7 +31,7 @@ setup(
     ]
     + [f"pyannote.audio==3.1.1"],
     entry_points={
-        "console_scripts": ["whisperx=whisperx.transcribe:cli"],
+        "console_scripts": ["whisperx=whisperx.__main__:main"],
     },
     include_package_data=True,
     extras_require={"dev": ["pytest"]},
