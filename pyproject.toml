@@ -1,0 +1,25 @@
+[project]
+name = "whisperx"
+requires-python = "==3.10.*"
+dynamic = [
+    "version",
+    "license",
+    "optional-dependencies",
+    "description",
+    "authors",
+    "dependencies",
+    "readme"
+]
+
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["whisperx"]
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+
+[project.scripts]
+whisperx = "whisperx.__main__:main"

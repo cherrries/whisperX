@@ -12,6 +12,8 @@ from transformers.pipelines.pt_utils import PipelineIterator
 from .audio import N_SAMPLES, SAMPLE_RATE, load_audio, log_mel_spectrogram
 from .vad import load_vad_model, merge_chunks
 from .types import TranscriptionResult, SingleSegment
+from faster_whisper import WhisperModel
+from faster_whisper.transcribe import TranscriptionOptions
 
 def find_numeral_symbol_tokens(tokenizer):
     numeral_symbol_tokens = []
@@ -317,13 +319,14 @@ def load_model(whisper_arch,
         "without_timestamps": True,
         "max_initial_timestamp": 0.0,
         "word_timestamps": False,
-        "prepend_punctuations": "\"'“¿([{-",
-        "append_punctuations": "\"'.。,，!！?？:：”)]}、",
+        "prepend_punctuations": u"\"'\u00bf([{-",
+        "append_punctuations": u"\"'.\u3002,\uff0c!\uff01?\uff1f:\uff1a)]}、",
         "suppress_numerals": False,
         "max_new_tokens": None,
         "clip_timestamps": None,
         "hallucination_silence_threshold": None,
         "hotwords": None,
+        "multilingual": language is None
     }
 
     if asr_options is not None:
@@ -332,7 +335,7 @@ def load_model(whisper_arch,
     suppress_numerals = default_asr_options["suppress_numerals"]
     del default_asr_options["suppress_numerals"]
 
-    default_asr_options = faster_whisper.transcribe.TranscriptionOptions(**default_asr_options)
+    default_asr_options = TranscriptionOptions(**default_asr_options)
 
     default_vad_options = {
         "vad_onset": 0.500,

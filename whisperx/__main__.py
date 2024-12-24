@@ -1,4 +1,6 @@
-from .transcribe import cli
+#!/usr/bin/env python3
+import sys
+from whisperx.transcribe import cli
 
-
-cli()
+if __name__ == '__main__':
+    sys.exit(cli())
